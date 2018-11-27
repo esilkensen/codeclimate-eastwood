@@ -2,7 +2,7 @@
   (:require
    [cheshire.core :as json]
    [clojure.java.io :as io]
-   [clojure.string :as s]
+   [clojure.string :as str]
    [clojure.tools.cli :as cli]
    [eastwood])
   (:gen-class))
@@ -17,14 +17,14 @@
         "Options:"
         options-summary
         ""]
-       (s/join \newline)))
+       (str/join \newline)))
 
 (defn error-msg [errors]
   (str "The following errors occurred while parsing your command:\n\n"
-       (s/join \newline errors)))
+       (str/join \newline errors)))
 
 (defn run-eastwood
-  "TODO."
+  "Runs the Eastwood lint tool given a path to a Code Climate config.json file."
   [config-file-path]
   (let [config-file (io/file config-file-path)
         config (when (and config-file (.exists config-file))

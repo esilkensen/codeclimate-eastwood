@@ -6,11 +6,13 @@
 
   :dependencies [[org.clojure/clojure "1.9.0"]
                  [org.clojure/tools.cli "0.4.1"]
-                 [jonase/eastwood "0.3.3"]
-                 [cheshire "5.8.1"]]
-
+                 [jonase/eastwood "0.3.3" :exclusions [org.clojure/clojure]]
+                 [cheshire "5.8.1"]
+                 [medley "1.0.0"]]
+  
   :profiles {:uberjar {:aot :all}}
 
-  :plugins [[lein-cloverage "1.0.13" :exclusions [org.clojure/clojure]]]
+  :plugins [[lein-cloverage "1.0.13" :exclusions [org.clojure/clojure]]
+            [jonase/eastwood "0.3.3"]]
   :main main
   :uberjar-name "codeclimate-eastwood.jar")
