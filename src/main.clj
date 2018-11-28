@@ -36,9 +36,10 @@
   (System/exit status))
 
 (defn -main [& args]
-  (let [{:keys [options arguments errors summary]} (cli/parse-opts args cli-options)]
-    (cond
-      (:help options) (exit 0 (usage summary))
-      (not= (count arguments) 2) (exit 1 (usage summary))
-      errors (exit 0 (error-msg errors)))
-    (run-eastwood (first arguments))))
+  (binding [*out* *err*]
+    (let [{:keys [options arguments errors summary]} (cli/parse-opts args cli-options)]
+      (cond
+        (:help options) (exit 0 (usage summary))
+        (not= (count arguments) 2) (exit 1 (usage summary))
+        errors (exit 0 (error-msg errors)))
+      (run-eastwood (first arguments)))))

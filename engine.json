@@ -1,0 +1,11 @@
+{
+  "maintainer": {
+    "name": "Erik Silkensen",
+    "email": "eriksilkensen@gmail.com"
+  },
+  "languages": [
+    "Clojure"
+  ],
+  "version": "0.1.0",
+  "spec_version": "0.3.1"
+}

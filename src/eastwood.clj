@@ -1,5 +1,6 @@
 (ns eastwood
   (:require
+   [clojure.stacktrace :refer [print-stack-trace]]
    [cheshire.core :as json]
    [clojure.string :as str]
    [eastwood.lint :as e]
@@ -30,17 +31,14 @@
   "Runs the Eastwood lint tool given a parsed Code Climate config.json file."
   [config]
   (let [opts (merge default-opts (parse-config-opts config))]
+    ;;(def catch-this-error 1)
     (>errf "[cc-eastwood] analyzing")
     (try
       (let [{:keys [warnings err err-data]} (e/lint opts)]
-        (>errf "[cc-eastwood] warnings")
-        (>errf (with-out-str (clojure.pprint/pprint warnings)))
-        (>errf "[cc-eastwood] err")
-        (>errf (with-out-str (clojure.pprint/pprint err)))
-        (>errf "[cc-eastwood] err-data")
-        (>errf (with-out-str (clojure.pprint/pprint err-data))))
+        (>errf "[cc-eastwood] warnings count %d" (count warnings)))
       (catch Exception e
-        (>errf "[cc-eastwood] failed")))))
+        (>errf "[cc-eastwood] failed: %s" (.getMessage e))
+        (print-stack-trace e)))))
 
 (defn parse-keyword
   "Parses strings that start with ':' as keywords."
